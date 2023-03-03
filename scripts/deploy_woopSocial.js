@@ -7,9 +7,9 @@ const main = async () => {
 
     const contractFactory = await hre.ethers.getContractFactory("WOOPSocial");
     const contract = await contractFactory.deploy(
-        UnirepSocial,
-        ReputationVerifier,
-        EpochKeyValidityVerifier,
+        UnirepSocial = "Contract Address",
+        ReputationVerifier = "Contract Address",
+        EpochKeyValidityVerifier = "Contract Address",
         10,
         20,
         30,

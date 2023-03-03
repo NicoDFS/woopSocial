@@ -5,28 +5,47 @@
 ```bash
 module.exports = {
   solidity: {
-    compilers: [{
-      version: "0.8.17",
-      settings: {
-        viaIR: true,
-        optimizer: { enabled: true },
+    compilers: [
+      {
+        version: "0.8.1",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
       },
-    }]
+      {
+        version: "0.8.17",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    ],
   },
   networks: {
-    woopchain: {
-      url: process.env.WOOPCHAIN_RPC,              // woopchain RPC URL
-      accounts: [process.env.PRIVATE_KEY]          // contract owner wallet private key
+    woop: {
+      url: "https://rpc.woop.ai/rpc",
+      accounts: ['<put your private key here but dont forget to delete later>'],
+      gas: 3000000,
+      gasPrice: 8000000000,
+      
     }
   },
   etherscan: {
     apiKey: {
-      woopchain: "abc"
+      woop: "abc"
     },
     customChains: [
       {
-        network: "woopchain",
+        network: "woop",
         chainId: 139,
+        allowUnlimitedContractSize: true,
+        gas: 3000000,
+        gasPrice: 8000000000,
         urls: {
           apiURL: "https://explorer.wikiwoop.com/api",
           browserURL: "https://explorer.wikiwoop.com"
@@ -34,8 +53,10 @@ module.exports = {
       }
     ]
   }
-}; 
+};
 ```
+
+### For mainnet update
 
 ## How to deploy woop token and social contract
 
@@ -85,12 +106,12 @@ const contractFactory = await hre.ethers.getContractFactory("UnirepSocial");
 const contract = await contractFactory.deploy(
     [10, 20, 30],
     [40, 50],
-    EpochKeyValidityVerifier,              // replace with deployed EpochKeyValidityVerifier contract address
-    StartTransitionVerifier,               // replace with deployed StartTransitionVerifier contract address
-    ProcessAttestationsVerifier,           // replace with deployed ProcessAttestationsVerifier contract address
-    UserStateTransitionVerifier,           // replace with deployed UserStateTransitionVerifier contract address
-    ReputationVerifier,                    // replace with deployed ReputationVerifier contract address
-    UserSignUpVerifier,                    // replace with deployed UserSignUpVerifier contract address
+    EpochKeyValidityVerifier = "replace with deployed StartTransitionVerifier contract address", 
+    StartTransitionVerifier = "replace with deployed StartTransitionVerifier contract address",
+    ProcessAttestationsVerifier = "replace with deployed StartTransitionVerifier contract address",
+    UserStateTransitionVerifier = "replace with deployed StartTransitionVerifier contract address",          
+    ReputationVerifier = "replace with deployed StartTransitionVerifier contract address",
+    UserSignUpVerifier = "replace with deployed StartTransitionVerifier contract address",
     60,
     70,
     80,
@@ -111,9 +132,9 @@ Likewise above case you have to update `deploy/deploy_woopSocial.js` as below.
 ```bash
 const contractFactory = await hre.ethers.getContractFactory("WOOPSocial");
 const contract = await contractFactory.deploy(
-    UnirepSocial,                         // replace with deployed UnirepSocial contract address
-    ReputationVerifier,                   // replace with deployed ReputationVerifier contract address
-    EpochKeyValidityVerifier,             // replace with deployed EpochKeyValidityVerifier contract address
+    UnirepSocial = "replace with deployed StartTransitionVerifier contract address",
+    ReputationVerifier = "replace with deployed StartTransitionVerifier contract address",
+    EpochKeyValidityVerifier = "replace with deployed StartTransitionVerifier contract address",
     10,
     20,
     30,

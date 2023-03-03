@@ -19,31 +19,50 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 module.exports = {
   solidity: {
-    compilers: [{
-      version: "0.8.17",
-      settings: {
-        viaIR: true,
-        optimizer: { enabled: true },
+    compilers: [
+      {
+        version: "0.8.1",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
       },
-    }]
+      {
+        version: "0.8.17",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    ],
   },
   networks: {
-    woopchain: {
-      url: process.env.WOOPCHAIN_RPC,
-      accounts: [process.env.PRIVATE_KEY]
+    woop: {
+      url: "https://rpctestnet.woop.ai/rpc",
+      accounts: ['<put your private key here but dont forget to delete later>'],
+      gas: 3000000,
+      gasPrice: 8000000000,
+      
     }
   },
   etherscan: {
     apiKey: {
-      woopchain: "abc"
+      woop: "abc"
     },
     customChains: [
       {
-        network: "woopchain",
-        chainId: 139,
+        network: "woop",
+        chainId: 138,
+        allowUnlimitedContractSize: true,
+        gas: 3000000,
+        gasPrice: 8000000000,
         urls: {
-          apiURL: "https://explorer.wikiwoop.com/api",
-          browserURL: "https://explorer.wikiwoop.com"
+          apiURL: "https://testnet.wikiwoop.com/api",
+          browserURL: "https://testnet.wikiwoop.com"
         }
       }
     ]
